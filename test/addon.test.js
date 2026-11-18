@@ -67,11 +67,13 @@ test('gera capa com duas equipes e texto escapado', () => {
     date: '2026-11-18T22:30:00Z', home: 'Flamengo', away: 'Santos & FC',
     state: 'pre', homeColor: 'c60000', awayColor: '000000'
   };
-  const poster = artSvg(match, 'poster');
+  const poster = artSvg(match, 'poster', { home: 'data:image/png;base64,AA==', away: 'data:image/png;base64,AA==' });
   const background = artSvg(match, 'background');
   assert.match(poster, /width="600" height="900"/);
   assert.match(background, /width="1280" height="720"/);
-  assert.match(poster, /Flamengo/);
-  assert.match(poster, /Santos &amp; FC/);
+  assert.equal((poster.match(/<image /g) || []).length, 2);
+  assert.equal((poster.match(/<circle /g) || []).length, 2);
+  assert.match(poster, />VS<\/text>/);
   assert.match(poster, /19:30/);
+  assert.doesNotMatch(poster, /FUTEBOL HOJE|Brasileirão|Flamengo|Santos/);
 });

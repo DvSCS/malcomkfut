@@ -1,6 +1,6 @@
 # Futebol Hoje — addon para Stremio e Nuvio
 
-Mostra partidas do dia na tela inicial em dois catálogos: **Futebol · Jogos de Hoje** e **Brasileirão · Jogos de Hoje**. Cada partida ganha uma capa vertical e um fundo horizontal com os dois escudos, horário de Brasília ou placar, data e competição.
+Mostra partidas do dia na tela inicial em dois catálogos: **Futebol · Jogos de Hoje** e **Brasileirão · Jogos de Hoje**. Cada partida ganha uma capa vertical e um fundo horizontal simples: os dois escudos, `VS` e o horário de Brasília sobre um degradê das cores dos times.
 
 O botão **Onde assistir legalmente** abre o guia de transmissão da JustWatch para o Brasil. Nos detalhes, o addon também mostra a tabela oficial da CBF para a Série A e canais oficiais da competição. Esses links ajudam a encontrar o detentor dos direitos; **não afirmam que uma plataforma transmite uma partida específica**. O addon não hospeda nem retransmite vídeo.
 
@@ -15,7 +15,7 @@ O endereço raiz do serviço também mostra a URL para copiar e um botão de ins
 
 ### Atualizar uma instalação existente
 
-Envie os arquivos atualizados para **o mesmo repositório** usado pelo serviço no Render e aguarde o novo deploy. Como o manifesto passou para a versão `1.1.0` e ganhou o recurso `stream`, atualize os addons no Stremio/Nuvio; se o cliente mantiver o manifesto antigo em cache, remova e reinstale a mesma URL `/manifest.json`.
+Envie os arquivos atualizados para **o mesmo repositório** usado pelo serviço no Render e aguarde o novo deploy. O manifesto está na versão `1.1.1`. Atualize os addons no Stremio/Nuvio; se o cliente mantiver o manifesto antigo em cache, remova e reinstale a mesma URL `/manifest.json`.
 
 ## Rodar localmente
 

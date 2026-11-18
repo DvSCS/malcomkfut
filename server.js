@@ -8,7 +8,7 @@ import { watchLinks, watchStreams } from './src/availability.js';
 const provider = createProvider();
 const manifest = {
   id: 'community.futebolhoje.catalogo',
-  version: '1.1.0',
+  version: '1.1.1',
   name: 'Futebol Hoje',
   description: 'Jogos de futebol de hoje, com horários, placares, capas e caminhos oficiais para encontrar transmissões.',
   resources: ['catalog', 'meta', 'stream'],
