@@ -1,6 +1,10 @@
 # Futebol Hoje — addon para Stremio e Nuvio
 
-Mostra partidas do dia na tela inicial em dois catálogos: **Futebol · Jogos de Hoje** e **Brasileirão · Jogos de Hoje**. Cada partida ganha uma capa vertical e um fundo horizontal simples: os dois escudos, `VS` e o horário de Brasília sobre um degradê das cores dos times.
+Mostra partidas do dia na tela inicial em dois catálogos: **Futebol · Jogos de Hoje** e **Brasileirão · Jogos de Hoje**. Cada partida ganha uma capa vertical e um fundo horizontal com estádio azul e violeta, taça ao fundo, escudos em destaque, `VS` e horário de Brasília. As cores dos times tingem discretamente a composição.
+
+Os escudos vêm da ESPN; quando um time não recebe logo no placar, o addon tenta o endereço do clube na ESPN e depois a API gratuita do TheSportsDB. Se nenhuma fonte tiver imagem, mostra as iniciais do clube no espaço do escudo.
+
+Veja as prévias reais de [capa vertical](previews/preview-poster.png) e [fundo horizontal](previews/preview-background.png).
 
 O botão **Onde assistir legalmente** abre o guia de transmissão da JustWatch para o Brasil. Nos detalhes, o addon também mostra a tabela oficial da CBF para a Série A e canais oficiais da competição. Esses links ajudam a encontrar o detentor dos direitos; **não afirmam que uma plataforma transmite uma partida específica**. O addon não hospeda nem retransmite vídeo.
 
@@ -15,7 +19,7 @@ O endereço raiz do serviço também mostra a URL para copiar e um botão de ins
 
 ### Atualizar uma instalação existente
 
-Envie os arquivos atualizados para **o mesmo repositório** usado pelo serviço no Render e aguarde o novo deploy. O manifesto está na versão `1.1.1`. Atualize os addons no Stremio/Nuvio; se o cliente mantiver o manifesto antigo em cache, remova e reinstale a mesma URL `/manifest.json`.
+Envie os arquivos atualizados para **o mesmo repositório** usado pelo serviço no Render e aguarde o novo deploy. O manifesto está na versão `1.2.0`. Atualize os addons no Stremio/Nuvio; se o cliente mantiver o manifesto antigo em cache, remova e reinstale a mesma URL `/manifest.json`.
 
 ## Rodar localmente
 
@@ -37,4 +41,4 @@ Para mudar as competições consultadas, edite `LEAGUES` em `src/football.js`. C
 - `/art/poster/{id}.png` e `/art/background/{id}.png`
 - `/health`
 
-O addon usa `movie` como tipo para maximizar a exibição dos catálogos nos clientes Stremio. O recurso `stream` oferece somente um link externo para consultar disponibilidade legal. O PNG é gerado por `@resvg/resvg-js`, uma biblioteca local sem API paga.
+O addon usa `movie` como tipo para maximizar a exibição dos catálogos nos clientes Stremio. O recurso `stream` oferece somente um link externo para consultar disponibilidade legal. O PNG é gerado por `@resvg/resvg-js` e comprimido por `sharp`, bibliotecas locais sem API paga.

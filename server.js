@@ -8,9 +8,9 @@ import { watchLinks, watchStreams } from './src/availability.js';
 const provider = createProvider();
 const manifest = {
   id: 'community.futebolhoje.catalogo',
-  version: '1.1.1',
+  version: '2.0.0',
   name: 'Futebol Hoje',
-  description: 'Jogos de futebol de hoje, com horários, placares, capas e caminhos oficiais para encontrar transmissões.',
+  description: 'Jogos de futebol de hoje com transmissão ao vivo direto no player. Premiere, SporTV, ESPN, Globo, CazéTV e mais via EmbedTV.',
   resources: ['catalog', 'meta', 'stream'],
   types: ['movie'],
   idPrefixes: ['futebolhoje:'],
@@ -96,7 +96,7 @@ export function createServer(dataProvider = provider, artworkRenderer = renderAr
       const streamMatch = /^\/stream\/movie\/(futebolhoje:[a-z0-9._]+:\d{8}:\d+)\.json$/.exec(path);
       if (streamMatch) {
         const match = await findMatch(dataProvider, streamMatch[1]);
-        return match ? json(res, 200, { streams: watchStreams(match) }, 60) : json(res, 404, { error: 'Jogo não encontrado' });
+        return match ? json(res, 200, { streams: await watchStreams(match) }, 60) : json(res, 404, { error: 'Jogo não encontrado' });
       }
       return json(res, 404, { error: 'Recurso não encontrado' });
     } catch (error) {

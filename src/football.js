@@ -45,6 +45,8 @@ export function normalizeEvent(event, fallbackLeague) {
     home: homeName, away: awayName,
     homeLogo: home.team.logo || home.team.logos?.[0]?.href || null,
     awayLogo: away.team.logo || away.team.logos?.[0]?.href || null,
+    homeId: home.team.id || null, awayId: away.team.id || null,
+    homeAbbr: home.team.abbreviation || null, awayAbbr: away.team.abbreviation || null,
     homeColor: home.team.color || null, awayColor: away.team.color || null,
     homeScore: home.score ?? null, awayScore: away.score ?? null,
     status: statusType.description || statusType.shortDetail || statusType.name || 'Agendado',
@@ -87,8 +89,8 @@ export function preview(match, origin = '') {
   return {
     id: matchId(match), type: 'movie',
     name: `${match.home} × ${match.away} · ${score}`,
-    poster: origin ? `${origin}/art/poster/${matchId(match)}.png?v=clean2-${match.state}-${match.homeScore ?? ''}-${match.awayScore ?? ''}` : match.homeLogo || undefined,
-    background: origin ? `${origin}/art/background/${matchId(match)}.png?v=clean2-${match.state}-${match.homeScore ?? ''}-${match.awayScore ?? ''}` : match.awayLogo || undefined,
+    poster: origin ? `${origin}/art/poster/${matchId(match)}.png?v=stadium3-${match.state}-${match.homeScore ?? ''}-${match.awayScore ?? ''}` : match.homeLogo || undefined,
+    background: origin ? `${origin}/art/background/${matchId(match)}.png?v=stadium3-${match.state}-${match.homeScore ?? ''}-${match.awayScore ?? ''}` : match.awayLogo || undefined,
     posterShape: 'poster',
     description: `${match.leagueName} · ${localDay(new Date(match.date))} às ${time} (Brasília) · ${match.status}`
   };
