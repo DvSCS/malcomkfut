@@ -38,13 +38,14 @@ export function normalizeEvent(event, fallbackLeague) {
   const statusType = status.type || {};
   const homeName = home.team.displayName || home.team.name || 'Mandante';
   const awayName = away.team.displayName || away.team.name || 'Visitante';
-  const leagueName = event?.league?.name || competition?.league?.name || event?.season?.name ||
+  const leagueName = event?.league?.name || competition?.league?.name || competition?.altGameNote || event?.season?.name ||
     (fallbackLeague === 'bra.1' ? 'Brasileirão Série A' : fallbackLeague);
   return {
     id: String(event.id), league, leagueName, date: date.toISOString(),
     home: homeName, away: awayName,
     homeLogo: home.team.logo || home.team.logos?.[0]?.href || null,
     awayLogo: away.team.logo || away.team.logos?.[0]?.href || null,
+    homeColor: home.team.color || null, awayColor: away.team.color || null,
     homeScore: home.score ?? null, awayScore: away.score ?? null,
     status: statusType.description || statusType.shortDetail || statusType.name || 'Agendado',
     state: statusType.state || 'pre',
@@ -80,24 +81,24 @@ export function parseMatchId(id) {
   return match ? { league: match[1], day: match[2], eventId: match[3] } : null;
 }
 
-export function preview(match) {
+export function preview(match, origin = '') {
   const time = clockFormatter.format(new Date(match.date));
   const score = match.state === 'pre' ? time : `${match.homeScore ?? '-'} × ${match.awayScore ?? '-'}`;
   return {
     id: matchId(match), type: 'movie',
     name: `${match.home} × ${match.away} · ${score}`,
-    poster: match.homeLogo || undefined,
-    background: match.awayLogo || undefined,
-    posterShape: 'square',
+    poster: origin ? `${origin}/art/poster/${matchId(match)}.png?v=${match.state}-${match.homeScore ?? ''}-${match.awayScore ?? ''}` : match.homeLogo || undefined,
+    background: origin ? `${origin}/art/background/${matchId(match)}.png?v=${match.state}-${match.homeScore ?? ''}-${match.awayScore ?? ''}` : match.awayLogo || undefined,
+    posterShape: 'poster',
     description: `${match.leagueName} · ${localDay(new Date(match.date))} às ${time} (Brasília) · ${match.status}`
   };
 }
 
-export function meta(match) {
+export function meta(match, origin = '') {
   const time = clockFormatter.format(new Date(match.date));
   const score = match.state === 'pre' ? '' : `\nPlacar: ${match.homeScore ?? '-'} × ${match.awayScore ?? '-'}`;
   return {
-    ...preview(match),
+    ...preview(match, origin),
     releaseInfo: localDay(new Date(match.date)).slice(0, 4),
     description: `${match.home} × ${match.away}\n${match.leagueName}\n${localDay(new Date(match.date))} às ${time} (Brasília)\nStatus: ${match.status}${score}${match.venue ? `\nEstádio: ${match.venue}` : ''}${match.url ? `\nDetalhes: ${match.url}` : ''}`
   };

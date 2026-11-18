@@ -1,19 +1,25 @@
 # Futebol Hoje — addon para Stremio e Nuvio
 
-Mostra partidas do dia na tela inicial em dois catálogos: **Futebol · Jogos de Hoje** e **Brasileirão · Jogos de Hoje**. Cada item informa horário de Brasília, competição, status e placar quando disponível. É um addon de **calendário e resultados**; não fornece vídeo nem links de transmissão.
+Mostra partidas do dia na tela inicial em dois catálogos: **Futebol · Jogos de Hoje** e **Brasileirão · Jogos de Hoje**. Cada partida ganha uma capa vertical e um fundo horizontal com os dois escudos, horário de Brasília ou placar, data e competição.
+
+O botão **Onde assistir legalmente** abre o guia de transmissão da JustWatch para o Brasil. Nos detalhes, o addon também mostra a tabela oficial da CBF para a Série A e canais oficiais da competição. Esses links ajudam a encontrar o detentor dos direitos; **não afirmam que uma plataforma transmite uma partida específica**. O addon não hospeda nem retransmite vídeo.
 
 ## Publicar no Render sem pagar por API
 
 1. Envie estes arquivos para um repositório GitHub.
-2. No Render, selecione **New → Blueprint** e conecte o repositório. O `render.yaml` cria um serviço web no plano `free`.
+2. No Render, selecione **New → Blueprint** e conecte o repositório. O `render.yaml` cria um serviço web no plano `free`. Um serviço já criado pode ser atualizado com novo deploy do mesmo repositório.
 3. Aguarde o deploy. Abra `https://SEU-SERVICO.onrender.com/health` e confirme `{"status":"ok"}`.
 4. Instale `https://SEU-SERVICO.onrender.com/manifest.json` em **Stremio → Addons → Add addon**. No Nuvio, cole a mesma URL no campo de instalação de addon Stremio.
 
 O endereço raiz do serviço também mostra a URL para copiar e um botão de instalação no Stremio.
 
+### Atualizar uma instalação existente
+
+Envie os arquivos atualizados para **o mesmo repositório** usado pelo serviço no Render e aguarde o novo deploy. Como o manifesto passou para a versão `1.1.0` e ganhou o recurso `stream`, atualize os addons no Stremio/Nuvio; se o cliente mantiver o manifesto antigo em cache, remova e reinstale a mesma URL `/manifest.json`.
+
 ## Rodar localmente
 
-Requer Node.js 20 ou superior. Execute `node server.js` e abra `http://localhost:3000`.
+Requer Node.js 20 ou superior. Execute `npm install`, depois `npm start` e abra `http://localhost:3000`.
 
 ## Fonte e limites
 
@@ -27,6 +33,8 @@ Para mudar as competições consultadas, edite `LEAGUES` em `src/football.js`. C
 - `/catalog/movie/futebol-hoje.json`
 - `/catalog/movie/brasileirao-hoje.json`
 - `/meta/movie/{id}.json`
+- `/stream/movie/{id}.json`
+- `/art/poster/{id}.png` e `/art/background/{id}.png`
 - `/health`
 
-O addon usa `movie` como tipo para maximizar a exibição dos catálogos nos clientes Stremio. Nenhum item tem recurso `stream`.
+O addon usa `movie` como tipo para maximizar a exibição dos catálogos nos clientes Stremio. O recurso `stream` oferece somente um link externo para consultar disponibilidade legal. O PNG é gerado por `@resvg/resvg-js`, uma biblioteca local sem API paga.
